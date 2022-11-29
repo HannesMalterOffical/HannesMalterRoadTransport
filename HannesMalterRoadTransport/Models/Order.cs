@@ -4,6 +4,7 @@ namespace HannesMalterRoadTransport.Models
 {
     public class Order
     {
+        // 1, Company, 50, 5/5/2022 14:50
         public int Id { get; set; }
 
         [DisplayName("Company Name")]
