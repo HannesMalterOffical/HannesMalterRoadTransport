@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using HannesMalterRoadTransport.Models;
 
 namespace HannesMalterRoadTransport.Data
 {
@@ -9,5 +10,7 @@ namespace HannesMalterRoadTransport.Data
             : base(options)
         {
         }
+        public DbSet<HannesMalterRoadTransport.Models.Transport> Transport { get; set; }
+        public DbSet<HannesMalterRoadTransport.Models.Order> Order { get; set; }
     }
 }
