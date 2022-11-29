@@ -13,6 +13,27 @@ namespace HannesMalterRoadTransport.Controllers
     public class TransportsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        public IActionResult AddTransport()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTransport([Bind("Id,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(transport);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(transport);
+        }
+
+
+
+
+
 
         public TransportsController(ApplicationDbContext context)
         {
