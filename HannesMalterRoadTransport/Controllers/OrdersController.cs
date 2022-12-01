@@ -14,6 +14,26 @@ namespace HannesMalterRoadTransport.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+
+        public IActionResult YourOrder()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> YourOrder([Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(order);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(order);
+        }
+
+
         public OrdersController(ApplicationDbContext context)
         {
             _context = context;

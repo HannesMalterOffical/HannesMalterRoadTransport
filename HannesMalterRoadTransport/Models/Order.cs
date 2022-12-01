@@ -10,6 +10,8 @@ namespace HannesMalterRoadTransport.Models
         [DisplayName("Company Name")]
         public string Name { get; set; }
 
+        [DisplayName("My location")]
+        public string MyLocation { get; set; }
 
         public int Quantity { get; set; }
 
