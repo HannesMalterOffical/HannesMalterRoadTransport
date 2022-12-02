@@ -15,20 +15,20 @@ namespace HannesMalterRoadTransport.Controllers
         private readonly ApplicationDbContext _context;
 
 
-        public IActionResult YourOrder()
+        public IActionResult YourOrderCreate()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> YourOrder([Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
+        public async Task<IActionResult> YourOrderCreate([Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(OrderIndex));
             }
             return View(order);
         }
@@ -38,6 +38,114 @@ namespace HannesMalterRoadTransport.Controllers
         {
             _context = context;
         }
+
+        public async Task<IActionResult> YourOrderEdit(int? id)
+        {
+            if (id == null || _context.Order == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> YourOrderEdit(int id, [Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
+        {
+            if (id != order.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(order);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderExists(order.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(OrderIndex));
+            }
+            return View(order);
+        }
+
+
+        public async Task<IActionResult> OrderIndex()
+        {
+            return View(await _context.Order.ToListAsync());
+        }
+
+        public async Task<IActionResult> YourOrderDetails(int? id)
+        {
+            if (id == null || _context.Order == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Order
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+
+        public async Task<IActionResult> OrderDelete(int? id)
+        {
+            if (id == null || _context.Order == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Order
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
+
+        [HttpPost, ActionName("OrderDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrderDelete(int id)
+        {
+            if (_context.Order == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Order'  is null.");
+            }
+            var order = await _context.Order.FindAsync(id);
+            if (order != null)
+            {
+                _context.Order.Remove(order);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(OrderIndex));
+        }
+
+        //   -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
         // GET: Orders
         public async Task<IActionResult> Index()
