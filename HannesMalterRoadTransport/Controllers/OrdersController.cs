@@ -22,7 +22,7 @@ namespace HannesMalterRoadTransport.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> YourOrderCreate([Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
+        public async Task<IActionResult> YourOrderCreate([Bind("Id,Name,StartingLocation,Quantity,ETA")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace HannesMalterRoadTransport.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> YourOrderEdit(int id, [Bind("Id,Name,MyLocation,Quantity,ETA")] Order order)
+        public async Task<IActionResult> YourOrderEdit(int id, [Bind("Id,Name,StartingLocation,Quantity,ETA")] Order order)
         {
             if (id != order.Id)
             {

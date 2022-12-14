@@ -11,7 +11,7 @@ namespace HannesMalterRoadTransport.Models
         public string Name { get; set; }
 
         [DisplayName("My location")]
-        public string MyLocation { get; set; }
+        public string StartingLocation { get; set; }
 
         public int Quantity { get; set; }
 

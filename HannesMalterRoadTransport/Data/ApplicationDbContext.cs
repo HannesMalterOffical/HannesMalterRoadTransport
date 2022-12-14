@@ -12,5 +12,6 @@ namespace HannesMalterRoadTransport.Data
         }
         public DbSet<HannesMalterRoadTransport.Models.Transport> Transport { get; set; }
         public DbSet<HannesMalterRoadTransport.Models.Order> Order { get; set; }
+        public DbSet<HannesMalterRoadTransport.Models.OrdersWithoutDriver> OrdersWithoutDriver { get; set; }
     }
 }

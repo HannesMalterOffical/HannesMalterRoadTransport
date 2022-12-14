@@ -1,4 +1,4 @@
-﻿@model HannesMalterRoadTransport.Models.Order
+﻿@model HannesMalterRoadTransport.Models.Transport
 
 @{
     ViewData["Title"] = "Create";
@@ -6,11 +6,11 @@
 
 <h1>Create</h1>
 
-<h4>Order</h4>
+<h4>Transport</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="YourOrderCreate">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,14 +23,29 @@
                 <span asp-validation-for="StartingLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
+                <label asp-for="EndLocation" class="control-label"></label>
+                <input asp-for="EndLocation" class="form-control" />
+                <span asp-validation-for="EndLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ETA" class="control-label"></label>
                 <input asp-for="ETA" class="form-control" />
                 <span asp-validation-for="ETA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarNR" class="control-label"></label>
+                <input asp-for="CarNR" class="form-control" />
+                <span asp-validation-for="CarNR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver" class="control-label"></label>
+                <input asp-for="Driver" class="form-control" />
+                <span asp-validation-for="Driver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrnspReady" class="control-label"></label>
+                <input asp-for="TrnspReady" class="form-control" />
+                <span asp-validation-for="TrnspReady" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -40,7 +55,7 @@
 </div>
 
 <div>
-    <a asp-action="OrderIndex">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

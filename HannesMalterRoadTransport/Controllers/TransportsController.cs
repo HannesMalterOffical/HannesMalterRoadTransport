@@ -12,14 +12,20 @@ namespace HannesMalterRoadTransport.Controllers
 {
     public class TransportsController : Controller
     {
+        public async Task<IActionResult> IndexTransport()
+        {
+            return View(await _context.Transport.ToListAsync());
+        }
+
         private readonly ApplicationDbContext _context;
-        public IActionResult AddTransport()
+        public IActionResult CreateTransport()
         {
             return View();
         }
+        [Route("Orders/OrderIndex")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTransport([Bind("Id,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
+        public async Task<IActionResult> CreateTransport([Bind("Id,Name,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
         {
             if (ModelState.IsValid)
             {
@@ -30,11 +36,110 @@ namespace HannesMalterRoadTransport.Controllers
             return View(transport);
         }
 
+        public async Task<IActionResult> DetailsTransport(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
 
+            var transport = await _context.Transport
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
 
+            return View(transport);
+        }
 
+        public async Task<IActionResult> EditTransport(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
 
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
+            return View(transport);
+        }
 
+        // POST: Transports/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTransport(int id, [Bind("Id,Name,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(transport);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexTransport));
+            }
+            return View(transport);
+        }
+
+        public async Task<IActionResult> DeleteTransport(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
+
+            var transport = await _context.Transport
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
+
+            return View(transport);
+        }
+
+        // POST: Transports/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Transport == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Transport'  is null.");
+            }
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport != null)
+            {
+                _context.Transport.Remove(transport);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexTransport));
+        }
+
+        //   ----------------------------------------------------------------------------------------------------------------------------------------------------
         public TransportsController(ApplicationDbContext context)
         {
             _context = context;
