@@ -1,16 +1,16 @@
 ﻿@model HannesMalterRoadTransport.Models.Transport
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateTransport";
 }
 
-<h1>Create</h1>
+<h1>CreateTransport</h1>
 
 <h4>Transport</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateTransport">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -55,11 +55,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="IndexTransport">Back to List</a>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

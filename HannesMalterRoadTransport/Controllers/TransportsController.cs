@@ -12,17 +12,19 @@ namespace HannesMalterRoadTransport.Controllers
 {
     public class TransportsController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
         public async Task<IActionResult> IndexTransport()
         {
             return View(await _context.Transport.ToListAsync());
         }
 
-        private readonly ApplicationDbContext _context;
+        
         public IActionResult CreateTransport()
         {
             return View();
         }
-        [Route("Orders/OrderIndex")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTransport([Bind("Id,Name,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
@@ -31,7 +33,7 @@ namespace HannesMalterRoadTransport.Controllers
             {
                 _context.Add(transport);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexTransport));
             }
             return View(transport);
         }
@@ -123,7 +125,7 @@ namespace HannesMalterRoadTransport.Controllers
         // POST: Transports/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteTransportConfirmed(int id)
         {
             if (_context.Transport == null)
             {
