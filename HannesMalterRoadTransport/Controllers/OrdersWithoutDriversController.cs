@@ -39,7 +39,7 @@ namespace HannesMalterRoadTransport.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrdersWithoutDriversEdit(int id, [Bind("Id,Quantity,ETA,CarNR,Driver")] OrdersWithoutDriver ordersWithoutDriver)
+        public async Task<IActionResult> OrdersWithoutDriversEdit(int id, [Bind("Id,StartingLocation,EndLocation,Quantity,ETA,CarNR,Driver")] OrdersWithoutDriver ordersWithoutDriver)
         {
             if (id != ordersWithoutDriver.Id)
             {
@@ -64,16 +64,65 @@ namespace HannesMalterRoadTransport.Controllers
                         throw;
                     }
                 }
+                return RedirectToAction(nameof(OrdersWithoutDriversIndex));
+            }
+            return View(ordersWithoutDriver);
+        }
+
+        public IActionResult OrdersWithoutDriverCreate()
+        {
+            return View();
+        }
+
+        // POST: OrdersWithoutDrivers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrdersWithoutDriverCreate([Bind("Id,Name,StartingLocation,EndLocation,Quantity,ETA,CarNR,Driver")] OrdersWithoutDriver ordersWithoutDriver)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(ordersWithoutDriver);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(ordersWithoutDriver);
         }
 
+        public async Task<IActionResult> OrdersWithoutDriverDelete(int? id)
+        {
+            if (id == null || _context.OrdersWithoutDriver == null)
+            {
+                return NotFound();
+            }
 
+            var ordersWithoutDriver = await _context.OrdersWithoutDriver
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (ordersWithoutDriver == null)
+            {
+                return NotFound();
+            }
 
+            return View(ordersWithoutDriver);
+        }
 
+        public async Task<IActionResult> OrdersWithoutDriverDetails(int? id)
+        {
+            if (id == null || _context.OrdersWithoutDriver == null)
+            {
+                return NotFound();
+            }
 
+            var ordersWithoutDriver = await _context.OrdersWithoutDriver
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (ordersWithoutDriver == null)
+            {
+                return NotFound();
+            }
 
+            return View(ordersWithoutDriver);
+        }
 
 
 

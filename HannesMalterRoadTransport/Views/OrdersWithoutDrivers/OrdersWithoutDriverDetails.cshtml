@@ -1,0 +1,60 @@
+﻿@model HannesMalterRoadTransport.Models.OrdersWithoutDriver
+
+@{
+    ViewData["Title"] = "OrdersWithoutDriverDetails";
+}
+
+<h1>OrdersWithoutDriverDetails</h1>
+
+<div>
+    <h4>OrdersWithoutDriver</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartingLocation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartingLocation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EndLocation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EndLocation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ETA)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ETA)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarNR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarNR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Driver)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Driver)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="OrdersWithoutDriversEdit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="OrdersWithoutDriversIndex">Back to List</a>
+</div>

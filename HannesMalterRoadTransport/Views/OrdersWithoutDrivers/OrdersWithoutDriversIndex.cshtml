@@ -7,7 +7,7 @@
 <h1>OrdersWithoutDriversIndex</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="OrdersWithoutDriverCreate">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -17,6 +17,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartingLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndLocation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -43,6 +46,9 @@
                 @Html.DisplayFor(modelItem => item.StartingLocation)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.EndLocation)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
@@ -55,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.Driver)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="OrdersWithoutDriversEdit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="OrdersWithoutDriverDetails" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="OrdersWithoutDriverDelete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
