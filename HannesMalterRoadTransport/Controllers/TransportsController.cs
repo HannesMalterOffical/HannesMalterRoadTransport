@@ -125,7 +125,7 @@ namespace HannesMalterRoadTransport.Controllers
         // POST: Transports/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteTransportConfirmed(int id)
+        public async Task<IActionResult> DeleteTransportConfirm(int id)
         {
             if (_context.Transport == null)
             {
@@ -140,6 +140,14 @@ namespace HannesMalterRoadTransport.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexTransport));
         }
+
+        public async Task<IActionResult> ShowOrdersWihoutDrivers()
+        {
+            var applicationDbContext = _context.Transport.Where(ex => ex.Driver == null || ex.CarNR == null);
+            return View(await applicationDbContext.ToListAsync());
+
+        }
+
 
         //   ----------------------------------------------------------------------------------------------------------------------------------------------------
         public TransportsController(ApplicationDbContext context)

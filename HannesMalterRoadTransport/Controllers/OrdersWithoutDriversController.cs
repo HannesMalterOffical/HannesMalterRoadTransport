@@ -39,7 +39,7 @@ namespace HannesMalterRoadTransport.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrdersWithoutDriversEdit(int id, [Bind("Id,StartingLocation,EndLocation,Quantity,ETA,CarNR,Driver")] OrdersWithoutDriver ordersWithoutDriver)
+        public async Task<IActionResult> OrdersWithoutDriversEdit(int id, [Bind("Id,Name,StartingLocation,EndLocation,Quantity,ETA,CarNR,Driver")] OrdersWithoutDriver ordersWithoutDriver)
         {
             if (id != ordersWithoutDriver.Id)
             {
@@ -85,25 +85,8 @@ namespace HannesMalterRoadTransport.Controllers
             {
                 _context.Add(ordersWithoutDriver);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(OrdersWithoutDriversIndex));
             }
-            return View(ordersWithoutDriver);
-        }
-
-        public async Task<IActionResult> OrdersWithoutDriverDelete(int? id)
-        {
-            if (id == null || _context.OrdersWithoutDriver == null)
-            {
-                return NotFound();
-            }
-
-            var ordersWithoutDriver = await _context.OrdersWithoutDriver
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ordersWithoutDriver == null)
-            {
-                return NotFound();
-            }
-
             return View(ordersWithoutDriver);
         }
 
@@ -124,7 +107,40 @@ namespace HannesMalterRoadTransport.Controllers
             return View(ordersWithoutDriver);
         }
 
+        public async Task<IActionResult> OrdersWithoutDriverDelete(int? id)
+        {
+            if (id == null || _context.OrdersWithoutDriver == null)
+            {
+                return NotFound();
+            }
 
+            var ordersWithoutDriver = await _context.OrdersWithoutDriver
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (ordersWithoutDriver == null)
+            {
+                return NotFound();
+            }
+
+            return View(ordersWithoutDriver);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrderDeleteConfirmed(int id)
+        {
+            if (_context.OrdersWithoutDriver == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.OrdersWithoutDriver'  is null.");
+            }
+            var ordersWithoutDriver = await _context.OrdersWithoutDriver.FindAsync(id);
+            if (ordersWithoutDriver != null)
+            {
+                _context.OrdersWithoutDriver.Remove(ordersWithoutDriver);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(OrdersWithoutDriversIndex));
+        }
 
 
 
