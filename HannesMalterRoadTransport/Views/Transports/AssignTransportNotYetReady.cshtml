@@ -1,0 +1,67 @@
+﻿@model HannesMalterRoadTransport.Models.Transport
+
+@{
+    ViewData["Title"] = "AssignTransportNotYetReady";
+}
+
+<h1>AssignTransportNotYetReady</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ETA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarNR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrnspReady)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarNR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Driver)
+            </td>
+            <td>
+                    <form asp-action="AssignTransport" method="post" asp-action="AssignTransport">
+                        <input type="hidden" asp-for="@item.Id" value="@item.Id" />
+                        <input type="text" asp-for="@item.TrnspReady" value="@item.TrnspReady" placeholder="Transport Status" />
+                        <input type="submit" value="Assign" class="btn btn-primary" />
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

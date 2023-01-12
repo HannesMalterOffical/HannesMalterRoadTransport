@@ -6,6 +6,10 @@ namespace HannesMalterRoadTransport.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -13,5 +17,6 @@ namespace HannesMalterRoadTransport.Data
         public DbSet<HannesMalterRoadTransport.Models.Transport> Transport { get; set; }
         public DbSet<HannesMalterRoadTransport.Models.Order> Order { get; set; }
         public DbSet<HannesMalterRoadTransport.Models.OrdersWithoutDriver> OrdersWithoutDriver { get; set; }
+        public object TransportationOrders { get; internal set; }
     }
 }

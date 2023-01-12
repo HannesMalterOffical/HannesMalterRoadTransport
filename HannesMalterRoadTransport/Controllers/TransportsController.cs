@@ -16,10 +16,11 @@ namespace HannesMalterRoadTransport.Controllers
 
         public async Task<IActionResult> IndexTransport()
         {
+
             return View(await _context.Transport.ToListAsync());
         }
 
-        
+
         public IActionResult CreateTransport()
         {
             return View();
@@ -141,13 +142,85 @@ namespace HannesMalterRoadTransport.Controllers
             return RedirectToAction(nameof(IndexTransport));
         }
 
-        public async Task<IActionResult> ShowOrdersWihoutDrivers()
+        public async Task<IActionResult> AssignTransport()
         {
-            var applicationDbContext = _context.Transport.Where(ex => ex.Driver == null || ex.CarNR == null);
-            return View(await applicationDbContext.ToListAsync());
-
+            var unassignedTransports = await _context.Transport.Where(x => x.Driver == null || x.CarNR == null).ToListAsync();
+            return View(unassignedTransports);
         }
 
+        public async Task<IActionResult> AssignTransportNotYetReady()
+        {
+            var unassignedTransports = await _context.Transport.Where(x => x.TrnspReady == "Not Ready").ToListAsync();
+            return View(unassignedTransports);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTransport(int id, [Bind("Id,CarNR,Driver")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var transportToUpdate = await _context.Transport.FindAsync(id);
+                    transportToUpdate.TrnspReady = transport.TrnspReady;
+                    _context.Update(transportToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(AssignTransport));
+            }
+            return View(transport);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTransportNotYetReady(int id, [Bind("Id,TrnspReady")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var transportToUpdate = await _context.Transport.FindAsync(id);
+                    transportToUpdate.TrnspReady = transport.TrnspReady;
+                    _context.Update(transportToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(AssignTransportNotYetReady));
+            }
+            var unassignedTransports = await _context.Transport.Where(x => x.TrnspReady == "Not Ready").ToListAsync();
+            return View(unassignedTransports);
+
+        }
 
         //   ----------------------------------------------------------------------------------------------------------------------------------------------------
         public TransportsController(ApplicationDbContext context)
@@ -158,7 +231,7 @@ namespace HannesMalterRoadTransport.Controllers
         // GET: Transports
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Transport.ToListAsync());
+            return View(await _context.Transport.ToListAsync());
         }
 
         // GET: Transports/Details/5
@@ -284,14 +357,14 @@ namespace HannesMalterRoadTransport.Controllers
             {
                 _context.Transport.Remove(transport);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TransportExists(int id)
         {
-          return _context.Transport.Any(e => e.Id == id);
+            return _context.Transport.Any(e => e.Id == id);
         }
     }
 }
