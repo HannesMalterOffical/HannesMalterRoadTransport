@@ -4,7 +4,7 @@
     ViewData["Title"] = "AssignTransport";
 }
 
-<h1>AssignTransport</h1>
+<h1>Assign Transport Driver and Car number</h1>
 
 <table class="table">
     <thead>
@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.ETA)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarNR)
+                @Html.DisplayNameFor(model => model.Driver)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Driver)
+                @Html.DisplayNameFor(model => model.CarNR)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TrnspReady)
@@ -49,14 +49,18 @@
                 @Html.DisplayFor(modelItem => item.ETA)
             </td>
             <td>
-                    <form asp-action="AssignTransport" method="post">
+                    <form asp-action="EditTransporDriverNameAndCarNumber" method="post">
                         <input type="hidden" asp-for="@item.Id" value="@item.Id" />
-                        <input type="text" asp-for="@item.Driver" value="@item.Driver" placeholder="Driver Name" />
-                        <input type="text" asp-for="@item.CarNR" value="@item.CarNR" placeholder="Car Number" />
-                        <input type="submit" value="Assign" class="btn btn-primary" />
+                        <input type="hidden" asp-for="@item.Driver" value="@item.Driver" placeholder="Driver Name" />
                     </form>
             </td>
             <td>
+                    <form asp-action="EditTransporDriverNameAndCarNumber" method="post">
+                        <input type="hidden" asp-for="@item.Id" value="@item.Id" />
+                        <input type="hidden" asp-for="@item.CarNR" value="@item.CarNR" placeholder="Car Number" />
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </form>
+                    @*<a asp-action="EditTransport" asp-route-id="@item.Id">Edit</a>*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrnspReady)

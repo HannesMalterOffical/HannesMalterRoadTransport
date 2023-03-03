@@ -1,0 +1,39 @@
+﻿@model HannesMalterRoadTransport.Models.Transport
+
+@{
+    ViewData["Title"] = "EditTransporDriverNameAndCarNumber";
+}
+
+<h1>EditTransporDriverNameAndCarNumber</h1>
+
+<h4>Transport</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditTransporDriverNameAndCarNumber">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CarNR" class="control-label"></label>
+                <input asp-for="CarNR" class="form-control" />
+                <span asp-validation-for="CarNR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver" class="control-label"></label>
+                <input asp-for="Driver" class="form-control" />
+                <span asp-validation-for="Driver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Assign" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IndexTransport">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

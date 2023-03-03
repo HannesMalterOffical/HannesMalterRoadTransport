@@ -106,6 +106,106 @@ namespace HannesMalterRoadTransport.Controllers
             return View(transport);
         }
 
+        public async Task<IActionResult> EditTransporDriverNameAndCarNumber(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
+
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
+            return View(transport);
+        }
+
+        // POST: Transports/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTransporDriverNameAndCarNumber(int id, [Bind("Id,CarNR,Driver")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(transport);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexTransport));
+            }
+            return View(transport);
+        }
+
+        public async Task<IActionResult> EditTransporReadiness(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
+
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
+            return View(transport);
+        }
+
+        // POST: Transports/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTransporReadiness(int id, [Bind("Id,TrnspReady")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(transport);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexTransport));
+            }
+            return View(transport);
+        }
+
         public async Task<IActionResult> DeleteTransport(int? id)
         {
             if (id == null || _context.Transport == null)

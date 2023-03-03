@@ -1,10 +1,10 @@
-﻿@model HannesMalterRoadTransport.Models.Transport
+﻿@model IEnumerable<HannesMalterRoadTransport.Models.Transport>
 
 @{
     ViewData["Title"] = "AssignTransportNotYetReady";
 }
 
-<h1>AssignTransportNotYetReady</h1>
+<h1>Ready/Not ready transports</h1>
 
 <table class="table">
     <thead>
@@ -55,11 +55,11 @@
                 @Html.DisplayFor(modelItem => item.Driver)
             </td>
             <td>
-                    <form asp-action="AssignTransport" method="post" asp-action="AssignTransport">
-                        <input type="hidden" asp-for="@item.Id" value="@item.Id" />
-                        <input type="text" asp-for="@item.TrnspReady" value="@item.TrnspReady" placeholder="Transport Status" />
-                        <input type="submit" value="Assign" class="btn btn-primary" />
-                    </form>
+                <form asp-action="EditTransporReadiness" method="post">
+                    <input type="hidden" asp-for="@item.Id" value="@item.Id" />
+                    <input type="hidden" asp-for="@item.TrnspReady" value="@item.TrnspReady" placeholder="Transport Status" />
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </form>
             </td>
         </tr>
 }

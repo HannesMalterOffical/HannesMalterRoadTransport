@@ -46,7 +46,7 @@ namespace HannesMalterRoadTransport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("HannesMalterRoadTransport.Models.OrdersWithoutDriver", b =>
@@ -82,7 +82,7 @@ namespace HannesMalterRoadTransport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrdersWithoutDriver");
+                    b.ToTable("OrdersWithoutDriver", (string)null);
                 });
 
             modelBuilder.Entity("HannesMalterRoadTransport.Models.Transport", b =>
@@ -118,7 +118,7 @@ namespace HannesMalterRoadTransport.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transport");
+                    b.ToTable("Transport", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
