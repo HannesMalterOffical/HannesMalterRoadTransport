@@ -11,10 +11,10 @@ namespace HannesMalterRoadTransport.Models
         public string Name { get; set; }
 
         [DisplayName("Starting Location")]
-        public string? StartingLocation { get; set; }
+        public string StartingLocation { get; set; }
 
         [DisplayName("Destination")]
-        public string? EndLocation { get; set; }
+        public string EndLocation { get; set; }
 
         [DisplayName("Estimated Time Of Arrival")]
         public DateTime ETA { get; set; }
@@ -24,6 +24,6 @@ namespace HannesMalterRoadTransport.Models
         public string? Driver { get; set; }
 
         [DisplayName("Transport Status")]
-        public string TrnspReady { get; set; }
+        public string TrnspReady { get; set; } = "Not Ready";
     }
 }

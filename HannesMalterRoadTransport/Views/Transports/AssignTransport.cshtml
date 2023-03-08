@@ -49,18 +49,9 @@
                 @Html.DisplayFor(modelItem => item.ETA)
             </td>
             <td>
-                    <form asp-action="EditTransporDriverNameAndCarNumber" method="post">
-                        <input type="hidden" asp-for="@item.Id" value="@item.Id" />
-                        <input type="hidden" asp-for="@item.Driver" value="@item.Driver" placeholder="Driver Name" />
-                    </form>
             </td>
             <td>
-                    <form asp-action="EditTransporDriverNameAndCarNumber" method="post">
-                        <input type="hidden" asp-for="@item.Id" value="@item.Id" />
-                        <input type="hidden" asp-for="@item.CarNR" value="@item.CarNR" placeholder="Car Number" />
-                        <input type="submit" value="Edit" class="btn btn-primary" />
-                    </form>
-                    @*<a asp-action="EditTransport" asp-route-id="@item.Id">Edit</a>*@
+                    <a asp-action="EditTransporDriverNameAndCarNumber" asp-route-id="@item.Id">Edit</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrnspReady)

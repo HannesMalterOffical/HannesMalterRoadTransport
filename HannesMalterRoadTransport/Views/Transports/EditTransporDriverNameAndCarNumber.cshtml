@@ -11,8 +11,12 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditTransporDriverNameAndCarNumber">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Name" />
+            <input type="hidden" asp-for="ETA" />
+            <input type="hidden" asp-for="StartingLocation" />
+            <input type="hidden" asp-for="EndLocation" />
             <div class="form-group">
                 <label asp-for="CarNR" class="control-label"></label>
                 <input asp-for="CarNR" class="form-control" />

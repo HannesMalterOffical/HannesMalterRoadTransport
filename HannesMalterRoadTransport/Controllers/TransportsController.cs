@@ -28,7 +28,7 @@ namespace HannesMalterRoadTransport.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTransport([Bind("Id,Name,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
+        public async Task<IActionResult> CreateTransport([Bind("Id,Name,StartingLocation,EndLocation,ETA")] Transport transport)
         {
             if (ModelState.IsValid)
             {
@@ -126,7 +126,7 @@ namespace HannesMalterRoadTransport.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTransporDriverNameAndCarNumber(int id, [Bind("Id,CarNR,Driver")] Transport transport)
+        public async Task<IActionResult> EditTransporDriverNameAndCarNumber(int id, [Bind("Id,Name, ETA,StartingLocation,EndLocation, CarNR,Driver")] Transport transport)
         {
             if (id != transport.Id)
             {
@@ -150,8 +150,9 @@ namespace HannesMalterRoadTransport.Controllers
                     {
                         throw;
                     }
+
                 }
-                return RedirectToAction(nameof(IndexTransport));
+                return RedirectToAction(nameof(AssignTransport));
             }
             return View(transport);
         }
@@ -201,7 +202,7 @@ namespace HannesMalterRoadTransport.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(IndexTransport));
+                return RedirectToAction(nameof(AssignTransportNotYetReady));
             }
             return View(transport);
         }
