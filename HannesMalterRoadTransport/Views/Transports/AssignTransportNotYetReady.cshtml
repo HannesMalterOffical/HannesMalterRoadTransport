@@ -55,11 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Driver)
             </td>
             <td>
-                <form asp-action="EditTransporReadiness" method="post">
-                    <input type="hidden" asp-for="@item.Id" value="@item.Id" />
-                    <input type="hidden" asp-for="@item.TrnspReady" value="@item.TrnspReady" placeholder="Transport Status" />
-                    <input type="submit" value="Edit" class="btn btn-primary" />
-                </form>
+                    <a asp-action="EditTransporReadiness" asp-route-id="@item.Id">Edit</a>
             </td>
         </tr>
 }

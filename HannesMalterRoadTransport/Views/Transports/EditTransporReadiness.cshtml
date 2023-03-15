@@ -13,6 +13,12 @@
         <form asp-action="EditTransporReadiness">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Name" />
+            <input type="hidden" asp-for="ETA" />
+            <input type="hidden" asp-for="StartingLocation" />
+            <input type="hidden" asp-for="EndLocation" />
+            <input type="hidden" asp-for="Driver" />
+            <input type="hidden" asp-for="CarNR" />
             <div class="form-group">
                 <label asp-for="TrnspReady" class="control-label"></label>
                 <input asp-for="TrnspReady" class="form-control" />

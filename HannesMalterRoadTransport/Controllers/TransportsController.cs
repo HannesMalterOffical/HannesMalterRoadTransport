@@ -177,7 +177,7 @@ namespace HannesMalterRoadTransport.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTransporReadiness(int id, [Bind("Id,TrnspReady")] Transport transport)
+        public async Task<IActionResult> EditTransporReadiness(int id, [Bind("Id,Name, ETA,StartingLocation,EndLocation, CarNR,Driver")] Transport transport)
         {
             if (id != transport.Id)
             {
