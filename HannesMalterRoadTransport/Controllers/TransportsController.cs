@@ -177,7 +177,7 @@ namespace HannesMalterRoadTransport.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTransporReadiness(int id, [Bind("Id,Name, ETA,StartingLocation,EndLocation, CarNR,Driver")] Transport transport)
+        public async Task<IActionResult> EditTransporReadiness(int id, [Bind("Id,Name,StartingLocation,EndLocation,ETA,CarNR,Driver,TrnspReady")] Transport transport)
         {
             if (id != transport.Id)
             {
@@ -222,25 +222,6 @@ namespace HannesMalterRoadTransport.Controllers
             }
 
             return View(transport);
-        }
-
-        // POST: Transports/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteTransportConfirm(int id)
-        {
-            if (_context.Transport == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Transport'  is null.");
-            }
-            var transport = await _context.Transport.FindAsync(id);
-            if (transport != null)
-            {
-                _context.Transport.Remove(transport);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(IndexTransport));
         }
 
         public async Task<IActionResult> AssignTransport()
