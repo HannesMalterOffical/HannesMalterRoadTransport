@@ -15,4 +15,19 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: orange;
+}
+
+header {
+    background-color: #E6E6E4;
+}
+
+nav {
+    display: flex;
+    align-items: baseline;
+    height: 40px;
+}
+
+button {
+    border: 43px double #3a41db;
 }
