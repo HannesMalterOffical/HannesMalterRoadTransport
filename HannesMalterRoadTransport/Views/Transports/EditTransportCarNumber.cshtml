@@ -1,27 +1,27 @@
 ﻿@model HannesMalterRoadTransport.Models.Transport
 
 @{
-    ViewData["Title"] = "EditTransporDriverNameAndCarNumber";
+    ViewData["Title"] = "EditTransportCarNumber";
 }
 
-<h1>EditTransporDriverNameAndCarNumber</h1>
+<h1>EditTransportCarNumber</h1>
 
 <h4>Transport</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditTransporDriverNameAndCarNumber">
+        <form asp-action="EditTransportCarNumber">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="Name" />
             <input type="hidden" asp-for="ETA" />
             <input type="hidden" asp-for="StartingLocation" />
             <input type="hidden" asp-for="EndLocation" />
-            <input type="hidden" asp-for="CarNR" />
+            <input type="hidden" asp-for="Driver" />
             <div class="form-group">
-                <label asp-for="Driver" class="control-label"></label>
-                <input asp-for="Driver" class="form-control" />
-                <span asp-validation-for="Driver" class="text-danger"></span>
+                <label asp-for="CarNR" class="control-label"></label>
+                <input asp-for="CarNR" class="form-control" />
+                <span asp-validation-for="CarNR" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Assign" class="btn btn-primary" />
@@ -29,11 +29,12 @@
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="IndexTransport">Back to List</a>
+    <a asp-action="AssignCarNumber">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

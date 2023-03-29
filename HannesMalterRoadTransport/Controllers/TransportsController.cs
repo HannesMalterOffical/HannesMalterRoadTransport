@@ -157,6 +157,57 @@ namespace HannesMalterRoadTransport.Controllers
             return View(transport);
         }
 
+        public async Task<IActionResult> EditTransportCarNumber(int? id)
+        {
+            if (id == null || _context.Transport == null)
+            {
+                return NotFound();
+            }
+
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport == null)
+            {
+                return NotFound();
+            }
+            return View(transport);
+        }
+
+        // POST: Transports/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTransportCarNumber(int id, [Bind("Id,Name, ETA,StartingLocation,EndLocation, CarNR,Driver")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(transport);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
+                }
+                return RedirectToAction(nameof(AssginCarNumber));
+            }
+            return View(transport);
+        }
+
         public async Task<IActionResult> EditTransporReadiness(int? id)
         {
             if (id == null || _context.Transport == null)
@@ -188,6 +239,7 @@ namespace HannesMalterRoadTransport.Controllers
             {
                 try
                 {
+                    transport.TrnspReady = "Ready";
                     _context.Update(transport);
                     await _context.SaveChangesAsync();
                 }
@@ -226,7 +278,7 @@ namespace HannesMalterRoadTransport.Controllers
 
         public async Task<IActionResult> AssignTransport()
         {
-            var unassignedTransports = await _context.Transport.Where(x => x.Driver == null || x.CarNR == null).ToListAsync();
+            var unassignedTransports = await _context.Transport.Where(x => x.Driver == null).ToListAsync();
             return View(unassignedTransports);
         }
 
@@ -236,8 +288,47 @@ namespace HannesMalterRoadTransport.Controllers
             return View(unassignedTransports);
         }
 
+        public async Task<IActionResult> AssginCarNumber()
+        {
+            var unassignedTransports = await _context.Transport.Where(x => x.CarNR == null).ToListAsync();
+            return View(unassignedTransports);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AssignTransport(int id, [Bind("Id,CarNR,Driver")] Transport transport)
+        public async Task<IActionResult> AssginCarNumber(int id, [Bind("Id,CarNR")] Transport transport)
+        {
+            if (id != transport.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var transportToUpdate = await _context.Transport.FindAsync(id);
+                    transportToUpdate.TrnspReady = transport.TrnspReady;
+                    _context.Update(transportToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransportExists(transport.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(AssginCarNumber));
+            }
+            return View(transport);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTransport(int id, [Bind("Id,Driver")] Transport transport)
         {
             if (id != transport.Id)
             {
@@ -441,7 +532,7 @@ namespace HannesMalterRoadTransport.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexTransport));
         }
 
         private bool TransportExists(int id)
