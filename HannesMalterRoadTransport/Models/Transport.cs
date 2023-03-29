@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HannesMalterRoadTransport.Models
 {
@@ -8,19 +9,24 @@ namespace HannesMalterRoadTransport.Models
         public int Id { get; set; }
 
         [DisplayName("Company Name")]
+        [StringLength(80)]
         public string Name { get; set; }
 
         [DisplayName("Starting Location")]
+        [StringLength(160)]
         public string StartingLocation { get; set; }
 
         [DisplayName("Destination")]
+        [StringLength(160)]
         public string EndLocation { get; set; }
 
         [DisplayName("Estimated Time Of Arrival")]
         public DateTime ETA { get; set; }
 
         [DisplayName("Number plate")]
+        [StringLength(20)]
         public string? CarNR { get; set; }
+        [StringLength(30)]
         public string? Driver { get; set; }
 
         [DisplayName("Transport Status")]
