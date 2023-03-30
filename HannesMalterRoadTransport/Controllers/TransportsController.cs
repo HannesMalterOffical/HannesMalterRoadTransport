@@ -221,7 +221,7 @@ namespace HannesMalterRoadTransport.Controllers
             _context.Update(transport);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexTransport));
         }
 
         public async Task<IActionResult> DeleteTransport(int? id)
